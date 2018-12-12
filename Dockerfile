@@ -8,7 +8,6 @@ RUN apk add --update \
         freetype freetype-dev \
         libjpeg-turbo libjpeg-turbo-dev \
         libpng libpng-dev \
-        libmcrypt libmcrypt-dev \
         gcc make libc-dev autoconf && \
     docker-php-ext-configure gd \
         --with-gd \
@@ -24,13 +23,10 @@ RUN apk add --update \
         gd \
         zip \
         >/dev/null && \
-        pecl install mcrypt-1.0.1 && \
-        echo "extension=mcrypt.so" > /usr/local/etc/php/conf.d/mcrypt.ini && \
     apk del \
         icu-dev gettext-dev \
         freetype-dev libjpeg-turbo-dev libpng-dev \
         libzip-dev \
-        libmcrypt-dev \
         gcc make libc-dev autoconf
 
 COPY ./presetup /usr/local/bin
