@@ -1,6 +1,7 @@
 FROM php:fpm-alpine
 
-RUN apk add --update \
+RUN set -x \
+    && apk add --update \
         icu icu-dev \
         gettext gettext-dev \
         jq figlet ncurses \
@@ -8,26 +9,40 @@ RUN apk add --update \
         freetype freetype-dev \
         libjpeg-turbo libjpeg-turbo-dev \
         libpng libpng-dev \
-        gcc make libc-dev autoconf && \
-    docker-php-ext-configure gd \
+        gcc make libc-dev autoconf \
+        libmcrypt libmcrypt-dev \
+        libmemcached libmemcached-dev \
+    && docker-php-ext-configure gd \
         --with-gd \
         --with-freetype-dir=/usr/include/ \
         --with-png-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ && \
-    docker-php-ext-configure zip \
-        --with-libzip && \
-    docker-php-ext-install \
+        --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-configure zip \
+        --with-libzip \
+    && NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
+    && docker-php-ext-install -j${NPROC} \
         intl gettext \
         mysqli pdo_mysql \
         exif \
         gd \
         zip \
-        >/dev/null && \
-    apk del \
+        >/dev/null \
+    && pecl channel-update pecl.php.net \
+    && pecl install mcrypt-1.0.2 \
+    && docker-php-ext-enable mcrypt \
+    && (rm -rf /usr/local/lib/php/test/mcrypt || true) \
+    && (rm -rf /usr/local/lib/php/doc/mcrypt || true) \
+    && pecl install memcached \
+    && docker-php-ext-enable memcached \
+    && (rm -rf /usr/local/lib/php/test/memcached || true) \
+    && (rm -rf /usr/local/lib/php/doc/memcached || true) \
+    && apk del \
         icu-dev gettext-dev \
         freetype-dev libjpeg-turbo-dev libpng-dev \
         libzip-dev \
-        gcc make libc-dev autoconf
+        gcc make libc-dev autoconf \
+        libmcrypt-dev \
+        libmemcached-dev
 
 COPY ./presetup /usr/local/bin
 COPY ./php.ini /usr/local/etc/php/
