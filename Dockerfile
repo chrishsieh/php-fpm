@@ -10,7 +10,6 @@ RUN set -x \
         libjpeg-turbo libjpeg-turbo-dev \
         libpng libpng-dev \
         gcc make libc-dev autoconf \
-        libmcrypt libmcrypt-dev \
         libmemcached libmemcached-dev \
     && docker-php-ext-configure gd \
         --with-gd \
@@ -28,10 +27,6 @@ RUN set -x \
         zip \
         >/dev/null \
     && pecl channel-update pecl.php.net \
-    && pecl install mcrypt-1.0.2 \
-    && docker-php-ext-enable mcrypt \
-    && (rm -rf /usr/local/lib/php/test/mcrypt || true) \
-    && (rm -rf /usr/local/lib/php/doc/mcrypt || true) \
     && pecl install memcached \
     && docker-php-ext-enable memcached \
     && (rm -rf /usr/local/lib/php/test/memcached || true) \
@@ -41,7 +36,6 @@ RUN set -x \
         freetype-dev libjpeg-turbo-dev libpng-dev \
         libzip-dev \
         gcc make libc-dev autoconf \
-        libmcrypt-dev \
         libmemcached-dev
 
 COPY ./presetup /usr/local/bin
