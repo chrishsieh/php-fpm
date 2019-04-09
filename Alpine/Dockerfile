@@ -4,7 +4,7 @@ RUN set -x \
     && apk add --update \
         icu icu-dev \
         gettext gettext-dev \
-        jq figlet ncurses \
+        jq figlet ncurses git \
         zip libzip libzip-dev \
         freetype freetype-dev \
         libjpeg-turbo libjpeg-turbo-dev \

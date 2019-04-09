@@ -2,15 +2,29 @@ kind: pipeline
 name: default
 
 steps:
-- name: php-fpm
+- name: Debian
   image: plugins/docker
   settings:
     repo: chrishsieh/php-fpm
-    dockerfile: ./Dockerfile
-    context: .
+    dockerfile: ./Debian/Dockerfile
+    context: ./Debian
     username:
       from_secret: DOCKER_USERNAME
     password:
       from_secret: DOCKER_PASSWORD
     tags:
+      - debian-latest
       - latest
+
+- name: Alpine
+  image: plugins/docker
+  settings:
+    repo: chrishsieh/php-fpm
+    dockerfile: ./Alpine/Dockerfile
+    context: ./Alpine
+    username:
+      from_secret: DOCKER_USERNAME
+    password:
+      from_secret: DOCKER_PASSWORD
+    tags:
+      - alpine-latest
