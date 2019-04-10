@@ -1,4 +1,4 @@
-FROM php:fpm
+FROM php:7.2-fpm
 
 # Make info file about this build
 RUN set -x \
