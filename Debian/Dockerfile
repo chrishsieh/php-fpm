@@ -11,6 +11,7 @@ RUN set -x \
         libjpeg62-turbo-dev \
         libicu-dev locales locales-all wget \
         libmemcachedutil2 libmemcached-dev \
+        libwebp-dev libxpm-dev \
     && apt-get install -y curl cmake \
     && mkdir /tmp/libzip && cd /tmp/libzip && curl -sSLO https://libzip.org/download/libzip-1.5.1.tar.gz \
     && tar zxf libzip-1.5.1.tar.gz && cd libzip-1.5.1/ && mkdir build && cd build && cmake ../ \
@@ -37,6 +38,7 @@ RUN set -x \
         libfreetype6-dev \
         libicu-dev cmake \
         libmemcached-dev \
+        libwebp-dev libxpm-dev \
     && apt-get autoremove -y
 
 COPY ./presetup /usr/local/bin
