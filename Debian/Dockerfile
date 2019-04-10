@@ -6,7 +6,7 @@ RUN set -x \
     && apt-get install -y \
         gettext jq figlet \
         zip git \
-        libpng-dev \
+        libpng-dev libzip-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libicu-dev locales locales-all wget \
@@ -21,10 +21,9 @@ RUN set -x \
 # ---- Installing PHP Extension: gd ----
     && ln -s /usr/lib/x86_64-linux-gnu/libXpm.* /usr/lib/ \
     && /usr/local/bin/docker-php-ext-configure gd --with-gd --with-webp-dir=/usr --with-jpeg-dir=/usr --with-png-dir=/usr --with-zlib-dir=/usr --with-xpm-dir=/usr --with-freetype-dir=/usr --enable-gd-jis-conv \
-    \
     && NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) \
     && docker-php-ext-install -j${NPROC} \
-        intl gettext mysqli pdo_mysql exif gd zip \
+        iconv intl gettext mysqli pdo_mysql exif gd zip \
     && (rm -rf /usr/local/lib/php/test/gd || true) \
     && (rm -rf /usr/local/lib/php/doc/gd || true) \
     && pecl channel-update pecl.php.net \
