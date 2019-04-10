@@ -6,7 +6,7 @@ RUN set -x \
     && apt-get install -y \
         gettext jq figlet \
         zip git \
-        libpng16-16 libwebp6 libzip4 \
+        libpng16-16 libwebp6 libzip4 libfreetype6 libjpeg62-turbo \
         libpng-dev libzip-dev \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
