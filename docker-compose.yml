@@ -1,0 +1,14 @@
+version: '3.7'
+services:
+  debian:
+    container_name: debian
+    image: chrishsieh/php-fpm:debian
+    build:
+      context: ./Debian
+    environment:
+      DEBUG_ENTRYPOINT: 2
+      FORWARD_PORTS_TO_LOCALHOST: 
+    volumes:
+      - ./run.d/:/run.d/
+      - ./setting/php.ini:/usr/local/etc/php/php.ini
+      - ./html:/var/www/html
