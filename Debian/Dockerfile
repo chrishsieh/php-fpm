@@ -2,7 +2,7 @@ FROM php:fpm
 
 LABEL \
 	name="PHP-FPM Image" \
-	image="chrishsieh/php-fpm" \
+	image="chrishsieh/php-fpm:debian" \
     license="MIT"
 
 ENV BUILD_DEPS="cmake libicu-dev libfreetype6-dev libjpeg62-turbo-dev libpng-dev libzip-dev libmagickwand-dev" \
@@ -69,7 +69,6 @@ RUN set -x \
     && cp /usr/local/etc/php/php.ini-production /usr/local/etc/php/php.ini
 
 WORKDIR /var/www
-VOLUME [ "/var/www" ]
 COPY supervisord.conf /etc/supervisor/supervisord.conf
 COPY entrypoint.sh /entrypoint.sh
 COPY func.d/*.sh /func.d/
