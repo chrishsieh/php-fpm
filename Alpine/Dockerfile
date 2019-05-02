@@ -8,7 +8,7 @@ LABEL \
 ENV BUILD_DEPS="cmake icu-dev freetype-dev libjpeg-turbo-dev libpng-dev libzip-dev imagemagick-dev gettext-dev" \
     RUN_DEPS="sudo dumb-init libarchive-tools icu gettext jq zip git wget \
             freetype libjpeg-turbo libpng libzip mysql-client imagemagick \
-            socat supervisor ca-certificates bash"
+            socat supervisor ca-certificates bash ncurses"
 
 RUN set -x \
 # ---- Installing Build dependencies ----
